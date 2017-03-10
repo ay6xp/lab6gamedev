@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import com.sun.glass.ui.Timer;
 
 import edu.virginia.engine.util.GameClock;
+import edu.virginia.lab1test.Platformer;
 
 public class AnimatedSprite extends Sprite {
 	
@@ -137,6 +138,27 @@ public class AnimatedSprite extends Sprite {
 		
 		
 		
+	}
+	public void collide(Platformer platform){
+		if(this.collidesWith(platform)){
+			if(this.getPositionX()>platform.getPositionX() && this.getPositionX()<platform.getPositionX()+platform.getUnscaledWidth()){
+				if(this.getPositionY()+this.getUnscaledHeight()>=platform.getPositionY() && this.getPositionX()+this.getUnscaledWidth()>platform.getPositionX()+platform.getUnscaledWidth()){
+					this.setPositionX(platform.getPositionX()+platform.getUnscaledWidth());
+				}
+				else if(this.getPositionY()+this.getUnscaledHeight()>=platform.getPositionY()){
+					if(this.getPositionY()+50>platform.getPositionY()+platform.getUnscaledHeight()){
+						this.setPositionY(platform.getPositionY()+platform.getUnscaledHeight());
+					}
+					else {
+						this.setPositionY(platform.getPositionY() - this.getUnscaledHeight());
+					}
+				}
+				else if(this.getPositionY()+this.getUnscaledHeight()>=platform.getPositionY() && this.getPositionX()+this.getUnscaledWidth()>platform.getPositionX()){
+					this.setPositionX(platform.getPositionX()-this.getUnscaledWidth());
+				}
+
+			}
+		}
 	}
 	
 	public long getDelay(){
