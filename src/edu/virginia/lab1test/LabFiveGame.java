@@ -27,6 +27,8 @@ public class LabFiveGame extends Game {
 	Platformer platform = new Platformer("Rectangele", "platform.png");
 	Platformer platform1 = new Platformer("Rectangele", "platform.png");
 	Platformer platform2 = new Platformer("Rectangele", "platform.png");
+	SoundManagerClass music = new SoundManagerClass();
+	Sprite marioBackground = new Sprite("Background","BowserCastle2.png");
 	
 	private AnimatedSprite animation;
 	
@@ -73,6 +75,8 @@ public class LabFiveGame extends Game {
 		
 		animation.setPositionX(0);
 		animation.setPositionY(480);
+		music.playMusic("resources/01-grass-land.mp3");
+		
 		
 	}
 	
@@ -112,6 +116,7 @@ public class LabFiveGame extends Game {
 			
 			mario.setPositionY(mario.getPositionY() + 10);
 			animation.fall();
+			music.playSoundEffect("resources/song100.wav");
 			
 		}
 		if(pressedKeys.contains("Right")){
@@ -222,6 +227,11 @@ public class LabFiveGame extends Game {
 		
 		
 		super.draw(g);
+
+		if(marioBackground!=null){
+			marioBackground.draw(g);
+			
+		}
 		 if(myCoin != null && myCoin.getVisibility()!=false){
 			 myCoin.draw(g);
 			}
@@ -248,13 +258,13 @@ public class LabFiveGame extends Game {
 		
 		g.setColor(Color.RED);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		
+		if(platform!=null){
 		platform.draw(g);
 		
 		platform1.draw(g);
 		
 		platform2.draw(g);
-		
+		}
 		
 	
 		
