@@ -16,7 +16,7 @@ public class QuestManager implements IEventListener {
             //System.out.println("Quest is Complete");
         }
         if(event.getEventType()== "CollidedEvent"){
-        	System.out.println("COLLISOION HS WORKED");
+        	//System.out.println("COLLISOION HS WORKED");
         }
     }
 

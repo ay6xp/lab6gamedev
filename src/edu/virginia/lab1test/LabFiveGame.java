@@ -71,8 +71,8 @@ public class LabFiveGame extends Game {
 		platform2.setPositionX(500);
 		platform2.setPositionY(400);
 		
-		animation.setPositionX(0);
-		animation.setPositionY(480);
+		animation.setPositionX(50);
+		animation.setPositionY(220);
 		
 	}
 	
@@ -185,7 +185,7 @@ public class LabFiveGame extends Game {
 			mario.toggleVisibility();
 			animation.toggleVisibility();
 			
-			
+
 		}
 		
 		if(animation!=null &&  myCoin!=null){
@@ -203,8 +203,12 @@ public class LabFiveGame extends Game {
 				 this.dispatchEvent(collidedEvent);
 		            complete = true;
 			}
+			animation.collide(platform);
+			animation.collide(platform1);
+			animation.collide(platform2);
+
 		}
-		
+
 		
 	}
 	
