@@ -20,6 +20,13 @@ public class Platformer extends Sprite implements IEventListener {
             this.setVisibleState(false);
         }
     }
+
+
+	@Override
+	public void handleEvent(Event event, Sprite sprite) {
+		// TODO Auto-generated method stub
+		
+	}
    
     
     

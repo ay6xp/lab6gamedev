@@ -1,6 +1,7 @@
 package edu.virginia.lab1test;
 
 
+import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.events.EventDispatcher;
 import edu.virginia.engine.events.IEventDispatcher;
@@ -16,9 +17,15 @@ public class QuestManager implements IEventListener {
             //System.out.println("Quest is Complete");
         }
         if(event.getEventType()== "CollidedEvent"){
-        	//System.out.println("COLLISOION HS WORKED");
+        	
         }
     }
+
+	@Override
+	public void handleEvent(Event event, Sprite sprite) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 

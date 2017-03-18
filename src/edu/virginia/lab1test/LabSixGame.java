@@ -9,12 +9,16 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Tweens.Tween;
+import Tweens.TweenJuggler;
+import Tweens.TweenTransitions;
+import Tweens.TweenableParams;
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.util.GameClock;
-public class LabFiveGame extends Game {
+public class LabSixGame extends Game {
 	
 
 	
@@ -32,6 +36,7 @@ public class LabFiveGame extends Game {
 	Coin myCoin7 = new Coin("Coin", "Coin4.png");
 	Coin myCoin8 = new Coin("Coin", "Coin4.png");
 	Coin myCoin9 = new Coin("Coin", "Coin4.png");
+	TweenJuggler tweenJuggler;
 	
     QuestManager myQuestManager = new QuestManager();
     Event PickedUpEvent;
@@ -70,7 +75,7 @@ public class LabFiveGame extends Game {
 	/**
 	 * Constructor. See constructor in Game.java for details on the parameters given
 	 * */
-	public LabFiveGame() {
+	public LabSixGame() {
 		super("Lab Four Test Game", 1200, 900);
 		PickedUpEvent = new Event();
         PickedUpEvent.setEventType("CoinPickedUp");
@@ -132,6 +137,14 @@ public class LabFiveGame extends Game {
 		scatterCoins();
 		addListeners();
 		
+		tweenJuggler = new TweenJuggler();
+		TweenTransitions animationIntro = new TweenTransitions("linearTransition");
+		Tween animationTween = new Tween(animation, animationIntro);
+		animationTween.animate(TweenableParams.Y, 0, 245, 5);
+
+		TweenTransitions coinCatch = new TweenTransitions("easeInOut");
+		Tween coinTween = new Tween(myCoin, coinCatch);
+		tweenJuggler.add(animationTween);
 		
 		
 	}
@@ -163,7 +176,7 @@ public class LabFiveGame extends Game {
 			animation.update();
 			animation.falling();
 			checkCollisions(animation);	
-			
+			tweenJuggler.nextFrame();
 			
 		}
 		
@@ -487,7 +500,7 @@ public class LabFiveGame extends Game {
 	public static void main(String[] args) {
 		clock = new GameClock();
 		
-		LabFiveGame game = new LabFiveGame();
+		LabSixGame game = new LabSixGame();
 		
 		
 		game.start();

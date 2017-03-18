@@ -10,16 +10,14 @@ public class TweenParam {
 		this.startVal = startVal;
 		this.endVal = endVal;
 		this.time = time;
+
 		
 	}
 	public TweenableParams getParem(){
-		
-		
 		return param;
 	}
 	public double getStartVal(){
 		return startVal;
-		
 	}
 	public double getEndVal(){
 		return endVal;
@@ -27,6 +25,8 @@ public class TweenParam {
 	public double getTweenTime(){
 		return time;
 	}
+
+
 	
 	
 }

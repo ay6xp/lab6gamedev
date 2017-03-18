@@ -40,9 +40,15 @@ public class AnimatedSprite extends Sprite {
 	private long startTime;
 	private long delay;
 	
-	int gravity = 10;
 	long terminalSpeed = 100;
+	public boolean isJumping = false;
+	public boolean canJump = true;
+	int gravity = 1;
+	    int terminalVelocity = 10;
+	    int verticalSpeed = 0;
+
 	
+
 	public AnimatedSprite(String id){
 		super(id);
 		try{
@@ -51,12 +57,7 @@ public class AnimatedSprite extends Sprite {
 			jumpingSprite = new BufferedImage[1];
 			fallingSprite = new BufferedImage[1];
 			walkingSpriteRight = new BufferedImage[6];
-		/*
-		 * walkingSprite = new BufferedImage[1];
-			notMoving = new BufferedImage[1];
-			notMoving[0] = ImageIO.read(new File("resources/mario_walk0.png"));
-			walkingSprite[0] = ImageIO.read(new File("resources/mario_walk1.PNG"));
-		*/	
+		
 			notMoving[0] = ImageIO.read(new File("resources/kirbyidle4.0.png"));
 			jumpingSprite[0] = ImageIO.read(new File("resources/kirbyjump4.0.png"));
 			fallingSprite[0] = ImageIO.read(new File("resources/kirbyfall4.0.png"));
@@ -81,6 +82,9 @@ public class AnimatedSprite extends Sprite {
 		setPositionY(180);
 		
 	}
+	
+
+	
 	
 	public AnimatedSprite(String id, String fileName){
 		super(id,fileName);
@@ -129,37 +133,40 @@ public class AnimatedSprite extends Sprite {
 	public void jump(){
 		setFrames(jumpingSprite);
 		setDelay(500);
-		setPositionY(getPositionY()-20);
+		setPositionY(getPositionY()-10);
 	}
 	public void fall(){
 		setFrames(fallingSprite);
 		setDelay(500);
-		setPositionY(getPositionY()+20);
+		setPositionY(getPositionY()+10);
+		 
 		
-		
-		
+			
 	}
-	public void collide(Platformer platform){
-		if(this.collidesWith(platform)){
-			if(this.getPositionX()>platform.getPositionX() && this.getPositionX()<platform.getPositionX()+platform.getUnscaledWidth()){
-				if(this.getPositionY()+this.getUnscaledHeight()>=platform.getPositionY() && this.getPositionX()+this.getUnscaledWidth()>platform.getPositionX()+platform.getUnscaledWidth()){
-					this.setPositionX(platform.getPositionX()+platform.getUnscaledWidth());
-				}
-				else if(this.getPositionY()+this.getUnscaledHeight()>=platform.getPositionY()){
-					if(this.getPositionY()+50>platform.getPositionY()+platform.getUnscaledHeight()){
-						this.setPositionY(platform.getPositionY()+platform.getUnscaledHeight());
-					}
-					else {
-						this.setPositionY(platform.getPositionY() - this.getUnscaledHeight());
-					}
-				}
-				else if(this.getPositionY()+this.getUnscaledHeight()>=platform.getPositionY() && this.getPositionX()+this.getUnscaledWidth()>platform.getPositionX()){
-					this.setPositionX(platform.getPositionX()-this.getUnscaledWidth());
-				}
+	public void falling(){
+		
+		if(isJumping == false) {
+            this.verticalSpeed = this.verticalSpeed + gravity;
+            if (this.verticalSpeed > terminalVelocity) {
+                this.verticalSpeed = terminalVelocity;
+                this.canJump= true;
+            }
+            this.positionY = this.positionY + this.verticalSpeed;
+        }
+	}
+	
+	public void jumping(){
+        if(isJumping == true) {
+            this.canJump = false;
+            this.verticalSpeed = this.verticalSpeed + gravity;
+            this.positionY = this.positionY - this.verticalSpeed;
+            if (this.verticalSpeed > terminalVelocity) {
+                this.isJumping = false;
+            }
+        }
+       
+    }
 
-			}
-		}
-	}
 	
 	public long getDelay(){
 		return delay;

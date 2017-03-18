@@ -294,6 +294,11 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
         }
     }
 
+    public void dispatchEvent(Event event,Sprite sprite) {
+        for (int i =0; i<eventlist.size();i++){
+            eventlist.get(i).handleEvent(event,sprite);
+        }
+    }
     @Override
     public boolean hasEventListener(IEventListener listener, String eventType) {
         if (eventlist.contains(listener)){return true;}

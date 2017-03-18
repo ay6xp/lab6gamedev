@@ -1,7 +1,3 @@
 package Tweens;
 
-public class TweenableParams {
-	public enum PARAM {X,Y, SCALE_X,SCALE_Y}
-	
-	
-}
+public enum TweenableParams {X, Y, SCALE_X, SCALE_Y}

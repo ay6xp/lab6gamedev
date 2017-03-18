@@ -39,6 +39,7 @@ public class DisplayObject {
 	double degrees;
 	float alpha = 1.00f;
 	Point2D screenPoint;
+	boolean objColliding = false;
 	private DisplayObject parent;
 	
 	
@@ -119,26 +120,37 @@ public class DisplayObject {
 			System.err.println("[DisplayObject.setImage] ERROR: " + imageName + " does not exist!");
 		}
 	}
+	public boolean checkObjColliding(){
+		if(objColliding){
+			return true;
+		}else{
+			return false;
+		}
+		
+		
+		
+	}
+	public Rectangle collidedRectangle(DisplayObject obj){
+		return this.getHitBox().intersection(obj.getHitBox());
+		
+	}
+	
 	public boolean collidesWith(DisplayObject obj){
-		//if ((this.getPositionX()>obj.getPositionX() && this.getPositionX()<=obj.getPositionX()+obj.getUnscaledWidth() && (this.getPositionY()>obj.getPositionY() && this.getPositionY()<=obj.getPositionY()+obj.getUnscaledHeight()))){
-           
-         //return true;   
-		//}
-		//animation = this
-		//mycoin = obj
+		
 		
 		if(this.getHitBox().intersects(obj.getHitBox())){
 			
-		 
+			objColliding = true;
 		
 			return true;
 		}
 	
-
+		
 		return false;
 	}
 	
-	private Rectangle getHitBox(){
+	
+	public Rectangle getHitBox(){
 		return new Rectangle((int)this.getPositionX(),(int)this.getPositionY(),this.getUnscaledWidth(),this.getUnscaledHeight());
 		
 	}

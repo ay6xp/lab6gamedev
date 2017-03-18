@@ -53,8 +53,11 @@ public class Sprite extends DisplayObjectContainer {
 
 	        return spriteSheet.getSubimage(0,0,0,0);
 	    }
+	 
+	
 
 	}
+
 	
 	
 

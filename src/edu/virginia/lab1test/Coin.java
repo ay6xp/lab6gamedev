@@ -19,7 +19,16 @@ public class Coin extends Sprite implements IEventListener {
     @Override
     public void handleEvent(Event event) {
         if (event.getEventType() == "CoinPickedUp") {
-            this.setVisibleState(false);
+          this.setVisibleState(false);
+            
         }
     }
+    
+    public void handleEvent(Event event, Sprite sprite) {
+        if (event.getEventType() == "CoinPickedUp") {
+         sprite.setVisibleState(false);
+            
+        }
+    }
+    
 }
