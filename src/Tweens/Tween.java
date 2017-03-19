@@ -3,8 +3,10 @@ package Tweens;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.Sprite;
 
+import java.util.ArrayList;
+
 public class Tween {
-    TweenParam tweenParam;
+    ArrayList<TweenParam> tweenParam = new ArrayList<>();
     DisplayObject sprite;
     TweenTransitions tweenTransitions;
     double percentDone = 0;
@@ -20,28 +22,55 @@ public class Tween {
     }
 
     public void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time) {
-        tweenParam = new TweenParam(fieldToAnimate, startVal, endVal, time);
+        tweenParam.add(new TweenParam(fieldToAnimate, startVal, endVal, time));
     }
 
     public void update() {
-        if (tweenParam.getParem() == TweenableParams.Y) {
-            if (startTime == -1){
-                startTime = (double)System.currentTimeMillis();
-            }
-            percentDone = ((double)System.currentTimeMillis() - startTime)/(tweenParam.time*1000);
-            sprite.setPositionY(tweenParam.startVal - (tweenParam.startVal- tweenParam.endVal)*tweenTransitions.applyTransition(percentDone));
+        for(int i=0; i < tweenParam.size(); i++){
+            TweenParam tmp = tweenParam.get(i);
+            if (tmp.getParem() == TweenableParams.Y) {
+                if (startTime == -1) {
+                    startTime = (double) System.currentTimeMillis();
+                }
+                percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.getTweenTime() * 1000);
+                sprite.setPositionY(tmp.getStartVal() - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
 
-            System.out.println((double)System.currentTimeMillis());
+                System.out.println((double) System.currentTimeMillis());
+            }
+            if (tmp.getParem() == TweenableParams.X) {
+                if (startTime == -1) {
+                    startTime = (double) System.currentTimeMillis();
+                }
+                percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
+                sprite.setPositionX(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
+                System.out.println((double) System.currentTimeMillis());
+            }
+            if (tmp.getParem() == TweenableParams.SCALE_X) {
+                if (startTime == -1) {
+                    startTime = (double) System.currentTimeMillis();
+                }
+                percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
+                sprite.setScaleX(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
+                System.out.println((double) System.currentTimeMillis());
+            }
+            if (tmp.getParem() == TweenableParams.SCALE_Y) {
+                if (startTime == -1) {
+                    startTime = (double) System.currentTimeMillis();
+                }
+                percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
+                sprite.setScaleY(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
+                System.out.println((double) System.currentTimeMillis());
+            }
         }
+
     }
 
 
     public boolean isComplete() {
-        if (percentDone >= 1){
+        if (percentDone >= 1) {
             startTime = -1;
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

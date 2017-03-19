@@ -9,10 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Tweens.Tween;
-import Tweens.TweenJuggler;
-import Tweens.TweenTransitions;
-import Tweens.TweenableParams;
+import Tweens.*;
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
@@ -75,7 +72,7 @@ public class LabSixGame extends Game {
      */
     public LabSixGame() {
         super("Lab Four Test Game", 1200, 900);
-        PickedUpEvent = new Event();
+        PickedUpEvent = new TweenEvent();
         PickedUpEvent.setEventType("CoinPickedUp");
         this.addEventListener(myQuestManager, PickedUpEvent.getEventType());
         //this.addEventListener(myCoin, PickedUpEvent.getEventType());
@@ -282,25 +279,22 @@ public class LabSixGame extends Game {
         }
 
         if (myCoin != null && animation != null) {
-
-
             for (int i = 0; i < coinArray.size(); i++) {
-                if (animation.collidesWith(coinArray.get(i))) {
-
-
-                    coinTweenArray.get(i).animate(TweenableParams.Y, coinArray.get(i).getPositionY(), 0, 2);
-                    coinTweenArray.get(i).animate(TweenableParams.X, coinArray.get(i).getPositionX(), 0, 2);
-                    //coinTweenArray.get(i).animate(TweenableParams.SCALE_X,coinArray.get(i).getScaleX(),0,5);
-                    //coinTweenArray.get(i).animate(TweenableParams.SCALE_Y,coinArray.get(i).getScaleY(),0,5);
-                    dispatchEvent(PickedUpEvent, coinArray.get(i));
-                    dispatchEvent(collidedEvent);
-                    tweenJuggler.add(coinTweenArray.get(i));
-
-                    music.playSoundEffect("resources/smw_coin.wav");
-
-
+                if (!coinArray.get(i).isTouched()) {
+                    if (animation.collidesWith(coinArray.get(i))) {
+                        coinArray.get(i).setTouched(true);
+                        coinTweenArray.get(i).animate(TweenableParams.X, coinArray.get(i).getPositionX(), 600, 2);
+                        coinTweenArray.get(i).animate(TweenableParams.Y, coinArray.get(i).getPositionY(), 450, 2);
+                        coinTweenArray.get(i).animate(TweenableParams.SCALE_X, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleX() + 1, 2);
+                        coinTweenArray.get(i).animate(TweenableParams.SCALE_Y, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleY() + 1, 2);
+                        //coinTweenArray.get(i).animate(TweenableParams.SCALE_X,coinArray.get(i).getScaleX(),0,5);
+                        //coinTweenArray.get(i).animate(TweenableParams.SCALE_Y,coinArray.get(i).getScaleY(),0,5);
+                        //dispatchEvent(PickedUpEvent, coinArray.get(i));
+                        //dispatchEvent(collidedEvent);
+                        tweenJuggler.add(coinTweenArray.get(i));
+                        music.playSoundEffect("resources/smw_coin.wav");
+                    }
                 }
-
             }
         }
         if (myCoin != null) {

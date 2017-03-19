@@ -14,7 +14,15 @@ public class Coin extends Sprite implements IEventListener {
     public Coin(String id, String imageFileName) {
         super(id, imageFileName);
     }
+    private boolean touched = false;
 
+    public boolean isTouched() {
+        return touched;
+    }
+
+    public void setTouched(boolean touched) {
+        this.touched = touched;
+    }
 
     @Override
     public void handleEvent(Event event) {
