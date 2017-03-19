@@ -10,7 +10,7 @@ public class Tween {
     double percentDone = 0;
     double startTime = -1;
 
-    Tween(DisplayObject object) {
+    public Tween(DisplayObject object) {
 
     }
 

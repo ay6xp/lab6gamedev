@@ -18,7 +18,7 @@ public class TweenTransitions {
     }
 
     private double easeInOut(double percentDone) {
-            return 0.0;
+            return percentDone;
     }
 
     public double linearTransition(double percentDone) {
