@@ -32,10 +32,12 @@ public class LabSixGame extends Game {
     Coin myCoin7 = new Coin("Coin", "Coin4.png");
     Coin myCoin8 = new Coin("Coin", "Coin4.png");
     Coin myCoin9 = new Coin("Coin", "Coin4.png");
-    TweenJuggler tweenJuggler;
+    //TweenJuggler tweenJuggler;
 
     QuestManager myQuestManager = new QuestManager();
     Event PickedUpEvent;
+    Event fadeOutEvent;
+    TweenEvent tweenEvent;
     boolean complete = false;
     Event collidedEvent;
     Platformer platform = new Platformer("Rectangele", "platform.png");
@@ -72,8 +74,11 @@ public class LabSixGame extends Game {
      */
     public LabSixGame() {
         super("Lab Four Test Game", 1200, 900);
-        PickedUpEvent = new TweenEvent();
+
+        fadeOutEvent = new Event();
+        PickedUpEvent = new Event();
         PickedUpEvent.setEventType("CoinPickedUp");
+        fadeOutEvent.setEventType("FadeOut");
         this.addEventListener(myQuestManager, PickedUpEvent.getEventType());
         //this.addEventListener(myCoin, PickedUpEvent.getEventType());
         collidedEvent = new Event();
@@ -131,7 +136,8 @@ public class LabSixGame extends Game {
         scatterCoins();
         addListeners();
 
-        tweenJuggler = new TweenJuggler();
+
+        //tweenJuggler = new TweenJuggler();
         TweenTransitions animationIntro = new TweenTransitions("linearTransition");
         Tween animationTween = new Tween(animation, animationIntro);
         animationTween.animate(TweenableParams.Y, 1000, 500, 2);
@@ -142,15 +148,15 @@ public class LabSixGame extends Game {
             coinTweenArray.add(new Tween(coinArray.get(i), coinCatch));
         }
 
-
-        tweenJuggler.add(animationTween);
+        TweenJuggler.getInstance().add(animationTween);
+        //tweenJuggler.add(animationTween);
 
 
     }
 
     public void addListeners() {
         for (int i = 0; i < coinArray.size(); i++) {
-            this.addEventListener(coinArray.get(i), PickedUpEvent.getEventType());
+            this.addEventListener(coinArray.get(i), fadeOutEvent.getEventType());
 
         }
     }
@@ -176,7 +182,7 @@ public class LabSixGame extends Game {
             animation.update();
             animation.falling();
             checkCollisions(animation);
-            tweenJuggler.nextFrame();
+            TweenJuggler.getInstance().nextFrame();
 
         }
 
@@ -287,11 +293,11 @@ public class LabSixGame extends Game {
                         coinTweenArray.get(i).animate(TweenableParams.Y, coinArray.get(i).getPositionY(), 450, 2);
                         coinTweenArray.get(i).animate(TweenableParams.SCALE_X, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleX() + 1, 2);
                         coinTweenArray.get(i).animate(TweenableParams.SCALE_Y, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleY() + 1, 2);
-                        //coinTweenArray.get(i).animate(TweenableParams.SCALE_X,coinArray.get(i).getScaleX(),0,5);
-                        //coinTweenArray.get(i).animate(TweenableParams.SCALE_Y,coinArray.get(i).getScaleY(),0,5);
-                        //dispatchEvent(PickedUpEvent, coinArray.get(i));
+
+                        dispatchEvent(fadeOutEvent, coinArray.get(i));
                         //dispatchEvent(collidedEvent);
-                        tweenJuggler.add(coinTweenArray.get(i));
+                        TweenJuggler.getInstance().add(coinTweenArray.get(i));
+                        //tweenJuggler.add(coinTweenArray.get(i));
                         music.playSoundEffect("resources/smw_coin.wav");
                     }
                 }

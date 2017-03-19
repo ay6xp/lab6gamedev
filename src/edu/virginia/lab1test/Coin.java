@@ -1,5 +1,6 @@
 package edu.virginia.lab1test;
 
+import Tweens.*;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.events.IEventDispatcher;
@@ -14,6 +15,7 @@ public class Coin extends Sprite implements IEventListener {
     public Coin(String id, String imageFileName) {
         super(id, imageFileName);
     }
+
     private boolean touched = false;
 
     public boolean isTouched() {
@@ -24,19 +26,21 @@ public class Coin extends Sprite implements IEventListener {
         this.touched = touched;
     }
 
+
     @Override
     public void handleEvent(Event event) {
-        if (event.getEventType() == "CoinPickedUp") {
-          this.setVisibleState(false);
-            
-        }
+
     }
-    
+
     public void handleEvent(Event event, Sprite sprite) {
-        if (event.getEventType() == "CoinPickedUp") {
-         sprite.setVisibleState(false);
-            
+        if (event.getEventType() == "FadeOut" && TweenEvent.tweenComplete()) {
+            Tween myTween = new Tween(sprite, new TweenTransitions("linearTransition"));
+            myTween.animate(TweenableParams.ALPHA, sprite.getTransparency(), 0, 2);
+            TweenJuggler.getInstance().add(myTween);
+
         }
     }
-    
+
+
+
 }

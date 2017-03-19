@@ -61,6 +61,14 @@ public class Tween {
                 sprite.setScaleY(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
                 System.out.println((double) System.currentTimeMillis());
             }
+            if (tmp.getParem() == TweenableParams.ALPHA) {
+                if (startTime == -1) {
+                    startTime = (double) System.currentTimeMillis();
+                }
+                percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
+                sprite.setTransparency((float)(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone)));
+                System.out.println((double) System.currentTimeMillis());
+            }
         }
 
     }
