@@ -283,21 +283,31 @@ public class LabSixGame extends Game {
 
 
         }
-
+        for (int i = 0; i < coinTweenArray.size(); i++) {
+            if (coinTweenArray.get(i).isFinished()) {
+                coinTweenArray.get(i).setFinished(false);
+                dispatchEvent(fadeOutEvent, coinArray.get(i));
+            }
+        }
+        System.out.println(coinArray.get(0).getPositionX());
         if (myCoin != null && animation != null) {
             for (int i = 0; i < coinArray.size(); i++) {
                 if (!coinArray.get(i).isTouched()) {
                     if (animation.collidesWith(coinArray.get(i))) {
                         coinArray.get(i).setTouched(true);
-                        coinTweenArray.get(i).animate(TweenableParams.X, coinArray.get(i).getPositionX(), 600, 2);
-                        coinTweenArray.get(i).animate(TweenableParams.Y, coinArray.get(i).getPositionY(), 450, 2);
-                        coinTweenArray.get(i).animate(TweenableParams.SCALE_X, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleX() + 1, 2);
-                        coinTweenArray.get(i).animate(TweenableParams.SCALE_Y, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleY() + 1, 2);
+                        coinTweenArray.get(i).animate(TweenableParams.X, coinArray.get(i).getPositionX(), 600, 1);
+                        coinTweenArray.get(i).animate(TweenableParams.Y, coinArray.get(i).getPositionY(), 450, 1);
+                        //coinTweenArray.get(i).animate(TweenableParams.SCALE_X, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleX() + 1, 2);
+                        //coinTweenArray.get(i).animate(TweenableParams.SCALE_Y, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleY() + 1, 2);
 
-                        dispatchEvent(fadeOutEvent, coinArray.get(i));
+                        Tween tweenEnlarge = new Tween(coinArray.get(i), new TweenTransitions("linearTransition"));
+                        tweenEnlarge.animate(TweenableParams.SCALE_X, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleX() + 1, 1);
+                        tweenEnlarge.animate(TweenableParams.SCALE_Y, coinArray.get(i).getScaleX(), coinArray.get(i).getScaleY() + 1, 1);
+
+                        //dispatchEvent(fadeOutEvent, coinArray.get(i));
                         //dispatchEvent(collidedEvent);
+                        TweenJuggler.getInstance().add(tweenEnlarge);
                         TweenJuggler.getInstance().add(coinTweenArray.get(i));
-                        //tweenJuggler.add(coinTweenArray.get(i));
                         music.playSoundEffect("resources/smw_coin.wav");
                     }
                 }

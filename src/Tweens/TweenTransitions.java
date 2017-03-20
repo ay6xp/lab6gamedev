@@ -1,5 +1,7 @@
 package Tweens;
 
+import java.lang.Math;
+
 public class TweenTransitions {
 
     private String transitionType;
@@ -18,14 +20,19 @@ public class TweenTransitions {
     }
 
     private double easeInOut(double percentDone) {
-            return Math.sin(percentDone);
+
+       // System.out.println((percentDone));
+        //if(percentDone+Math.log(percentDone)>0){
+          //  return percentDone+Math.log(percentDone);
+        //}
+        return Math.log(percentDone+1)/Math.log(2);
     }
 
     public double linearTransition(double percentDone) {
         return percentDone;
     }
 
-    private void intoTransition(double startVal, double endVal, double time, double percentDone) {
+    private void introTransition(double startVal, double endVal, double time, double percentDone) {
 
     }
 

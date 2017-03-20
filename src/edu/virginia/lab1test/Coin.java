@@ -33,11 +33,11 @@ public class Coin extends Sprite implements IEventListener {
     }
 
     public void handleEvent(Event event, Sprite sprite) {
-        if (event.getEventType() == "FadeOut" && TweenEvent.tweenComplete()) {
+        if (event.getEventType() == "FadeOut") {
             Tween myTween = new Tween(sprite, new TweenTransitions("linearTransition"));
             myTween.animate(TweenableParams.ALPHA, sprite.getTransparency(), 0, 2);
             TweenJuggler.getInstance().add(myTween);
-
+            System.out.println("handled");
         }
     }
 

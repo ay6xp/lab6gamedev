@@ -11,6 +11,7 @@ public class Tween {
     TweenTransitions tweenTransitions;
     double percentDone = 0;
     double startTime = -1;
+    boolean finished = false;
 
     public Tween(DisplayObject object) {
 
@@ -35,7 +36,7 @@ public class Tween {
                 percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.getTweenTime() * 1000);
                 sprite.setPositionY(tmp.getStartVal() - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
 
-                System.out.println((double) System.currentTimeMillis());
+                //System.out.println((double) System.currentTimeMillis());
             }
             if (tmp.getParem() == TweenableParams.X) {
                 if (startTime == -1) {
@@ -43,7 +44,7 @@ public class Tween {
                 }
                 percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
                 sprite.setPositionX(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
-                System.out.println((double) System.currentTimeMillis());
+                //System.out.println((double) System.currentTimeMillis());
             }
             if (tmp.getParem() == TweenableParams.SCALE_X) {
                 if (startTime == -1) {
@@ -51,7 +52,7 @@ public class Tween {
                 }
                 percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
                 sprite.setScaleX(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
-                System.out.println((double) System.currentTimeMillis());
+                //System.out.println((double) System.currentTimeMillis());
             }
             if (tmp.getParem() == TweenableParams.SCALE_Y) {
                 if (startTime == -1) {
@@ -59,7 +60,7 @@ public class Tween {
                 }
                 percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
                 sprite.setScaleY(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone));
-                System.out.println((double) System.currentTimeMillis());
+                //System.out.println((double) System.currentTimeMillis());
             }
             if (tmp.getParem() == TweenableParams.ALPHA) {
                 if (startTime == -1) {
@@ -67,7 +68,7 @@ public class Tween {
                 }
                 percentDone = ((double) System.currentTimeMillis() - startTime) / (tmp.time * 1000);
                 sprite.setTransparency((float)(tmp.startVal - (tmp.startVal - tmp.endVal) * tweenTransitions.applyTransition(percentDone)));
-                System.out.println((double) System.currentTimeMillis());
+                //System.out.println((double) System.currentTimeMillis());
             }
         }
 
@@ -77,13 +78,23 @@ public class Tween {
     public boolean isComplete() {
         if (percentDone >= 1) {
             startTime = -1;
+            finished=true;
             return true;
         } else {
             return false;
         }
     }
 
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
     public void setValue(TweenableParams param, double value) {
+
 
     }
 
